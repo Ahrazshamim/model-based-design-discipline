@@ -28,27 +28,55 @@ One had these rules loaded, one did not.
 
 ![Stateflow output with and without the rules](docs/before-after.png)
 
-**Left, without the rules.** Two transition labels and their action bodies are rendered in the
-same space, so neither can be read. Every arc carries its full expression inline.
+The shape of the difference is visible before any of the text is: dense and smudged on the left,
+structured and legible on the right. Zoom in and the reason is mechanical.
 
-**Right, with the rules.** Each guard is computed once into a named flag in a `du:` block, so the
-arcs carry `[bPreAbort]`, `[bPrechgOk]`, `[bWeldTimeout]` and nothing else. The chart even
-documents the convention it followed:
+**Without the rules**, every guard carries its whole expression and action body on the arc, so the
+labels grow until they collide:
+
+```matlab
+[in(Session.Running.Energized) && pilot != PilotState_e.PILOT_C]
+{
+  estopReq    = true;
+  abortReason = AbortReason_e.ABORT_PILOT_LOST;
+  vLOG_Charge("ESTOP: control pilot left state C");
+}
+```
+
+**With the rules**, the conditions are computed once, in one place, with the reasoning written
+down — and the arcs carry a name:
+
+```matlab
+% in the parallel Supervision state:
+du:
+/* Pilot monitor and comms watchdog, live only while energy can flow. */
+bPilotLost = in(Sequence.Energised) && (ePilot != PILOT_C);
+bCommsLost = in(Sequence.Energised.CurrentDemand) && (u16CommsQuiet >= CHG_TICKS_COMMS);
+bEstopReq  = bPilotLost || bCommsLost || bOverTemp;
+
+% on the arc:
+[bPilotLost || bPlugGone]{eReason = CHG_ABORT_PILOT_LOST;}
+```
+
+The guided chart also documents the conventions it worked to, rather than inferring them:
 
 ```matlab
 /* One tick = 100 ms; every threshold comes from STEP_S in build_dcfcSequencer.m. */
 /* Guard conditions for the sequence: the arcs themselves carry no arithmetic. */
 ```
 
-States sit in execution order, transition priorities are visible, and nothing overlaps.
+**What this does and does not show.** It is one prompt on one model, not a benchmark. The
+left-hand chart is not necessarily *wrong* — it may well simulate correctly. It is
+**unreviewable**, which is exactly the claim Rule 4 makes: a diagram a human cannot read is a
+diagram a human cannot approve. And the right-hand version is not merely tidier — naming each
+condition once is what makes the logic checkable line by line, and what stops the same predicate
+being written three slightly different ways on three different arcs.
 
-**What this does and does not show.** It is one prompt on one model, not a benchmark. The left
-chart is not necessarily *wrong* — it may simulate perfectly. It is **unreviewable**, which is the
-claim Rule 4 makes: a diagram a human cannot read is a diagram a human cannot approve. The
-difference in the right-hand chart is not tidiness for its own sake; naming each guard once is
-also what makes the logic reviewable line by line.
-
-Full-size: [without](docs/without-rules-full.jpg) · [with](docs/with-rules-full.jpg)
+Full-size charts:
+[Session, without](docs/without-rules-session.png) ·
+[Supervisor, without](docs/without-rules-supervisor.png) ·
+[Sequence, with](docs/with-rules-sequence.png) ·
+[Supervision, with](docs/with-rules-supervision.png)
 
 ### The seven rules, in one line each
 
