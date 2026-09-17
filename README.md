@@ -31,6 +31,31 @@ production vehicle-control model. Encoding them stopped them recurring.
 6. **Build and run it yourself** — then confirm the artefact moved and the target restarted.
 7. **Put the responsibility in the right layer** — decide from the knowledge the code needs, not from where the symptom appeared.
 
+## Prerequisites
+
+**To read and apply the rules:** nothing. They are prose, and a human or an agent can follow them
+with no setup.
+
+**To let an agent actually perform and verify the edits**, it needs to be connected to MATLAB.
+MathWorks ships the official way to do that:
+
+| Toolkit | What it gives you |
+|---|---|
+| [Simulink Agentic Toolkit](https://github.com/matlab/simulink-agentic-toolkit) | the one that matters here — model tooling (`model_edit`, `model_check`, `model_read`) plus MathWorks' own Simulink and Model-Based Design expertise |
+| [MATLAB Agentic Toolkit](https://github.com/matlab/matlab-agentic-toolkit) | the MATLAB side, and it installs the [MATLAB MCP Server](https://github.com/matlab/matlab-mcp-server) for you |
+
+Both can be installed together with MathWorks' Agentic Toolkit Installer. Agents configured
+automatically include **Claude Code, GitHub Copilot, OpenAI Codex, Gemini CLI and Amp**; anything
+else that speaks MCP can be pointed at the server by hand.
+
+Also needed: **MATLAB R2021a or later** with Simulink and Stateflow, and Embedded Coder if you are
+generating C.
+
+> **How this fits.** The MathWorks toolkits give the agent the *tools and the MATLAB knowledge*.
+> These rules govern the *process around an edit* — what to check before, what to keep intact
+> during, what to prove after. They are complementary, and this repo does not duplicate or replace
+> anything the toolkits provide.
+
 ## Install
 
 Clone it once:

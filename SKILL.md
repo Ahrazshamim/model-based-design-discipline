@@ -26,6 +26,11 @@ from them. Applies equally to a one-line guard edit and a new subsystem.
 them alongside whatever performs the change — MathWorks' own model-building guidance, a
 `model_edit`-style API, or direct Simulink API calls. They do not replace it.
 
+If your agent is not connected to MATLAB yet, the official route is MathWorks' [Simulink Agentic
+Toolkit](https://github.com/matlab/simulink-agentic-toolkit) and [MATLAB Agentic
+Toolkit](https://github.com/matlab/matlab-agentic-toolkit), which install the MATLAB MCP Server and
+the model tooling these rules assume.
+
 ---
 
 ## The gate
