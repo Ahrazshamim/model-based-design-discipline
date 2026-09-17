@@ -10,7 +10,11 @@ metadata:
 
 Seven rules for changing a production Simulink/Stateflow model that other code is generated from.
 They are process rules, not modelling tutorials — they say *what to do before, around and after*
-an edit that tools like `model_edit` or the Simulink API perform.
+an edit, whatever performs it: the Simulink/Stateflow API from a MATLAB session, a MATLAB MCP
+server, or hand edits in the editor.
+
+Nothing here is specific to one assistant or IDE. If your agent can run MATLAB commands and read
+this file, the rules apply.
 
 Each rule exists because skipping it produces a specific, recurring class of defect. Those defect
 classes are named under each rule, because a rule without its failure mode gets rationalised away.
@@ -18,8 +22,9 @@ classes are named under each rule, because a rule without its failure mode gets 
 **Scope.** Anything that edits a `.slx`, a data dictionary, a chart, or the C that is generated
 from them. Applies equally to a one-line guard edit and a new subsystem.
 
-**Prerequisite.** This skill governs *how* you change a model. Use it alongside whatever tool skill
-performs the change (e.g. `building-simulink-models` / `model_edit`); it does not replace them.
+**Prerequisite.** These rules govern *how* you change a model, not how to drive the tooling. Use
+them alongside whatever performs the change — MathWorks' own model-building guidance, a
+`model_edit`-style API, or direct Simulink API calls. They do not replace it.
 
 ---
 
