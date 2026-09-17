@@ -21,6 +21,35 @@ success from a simulation that agreed with its own wrong assumption.
 These seven rules were written down after each of those failures cost real debugging time on a
 production vehicle-control model. Encoding them stopped them recurring.
 
+## Does it actually change anything?
+
+The same prompt was run on two machines against the same model — a DC fast-charging sequencer.
+One had these rules loaded, one did not.
+
+![Stateflow output with and without the rules](docs/before-after.png)
+
+**Left, without the rules.** Two transition labels and their action bodies are rendered in the
+same space, so neither can be read. Every arc carries its full expression inline.
+
+**Right, with the rules.** Each guard is computed once into a named flag in a `du:` block, so the
+arcs carry `[bPreAbort]`, `[bPrechgOk]`, `[bWeldTimeout]` and nothing else. The chart even
+documents the convention it followed:
+
+```matlab
+/* One tick = 100 ms; every threshold comes from STEP_S in build_dcfcSequencer.m. */
+/* Guard conditions for the sequence: the arcs themselves carry no arithmetic. */
+```
+
+States sit in execution order, transition priorities are visible, and nothing overlaps.
+
+**What this does and does not show.** It is one prompt on one model, not a benchmark. The left
+chart is not necessarily *wrong* — it may simulate perfectly. It is **unreviewable**, which is the
+claim Rule 4 makes: a diagram a human cannot read is a diagram a human cannot approve. The
+difference in the right-hand chart is not tidiness for its own sake; naming each guard once is
+also what makes the logic reviewable line by line.
+
+Full-size: [without](docs/without-rules-full.jpg) · [with](docs/with-rules-full.jpg)
+
 ### The seven rules, in one line each
 
 1. **Analyse every dependency first** — every producer, consumer, router and namer, on both sides of the codegen boundary.
