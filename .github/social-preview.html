@@ -1,0 +1,77 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1280px; height:640px; overflow:hidden; }
+  body {
+    background:
+      radial-gradient(900px 500px at 18% -10%, #2a1305 0%, rgba(42,19,5,0) 62%),
+      linear-gradient(160deg, #0b0c0f 0%, #0b0c0f 55%, #101318 100%);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    color:#e8eaed;
+    padding:0 80px;
+    display:flex; flex-direction:column; justify-content:center;
+    position:relative;
+  }
+  .grid {
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+    background-size:64px 64px;
+  }
+  .wrap { position:relative; }
+  .main { position:relative; }
+  .eyebrow {
+    font-size:19px; font-weight:700; letter-spacing:3.4px; color:#f0812f;
+    text-transform:uppercase;
+  }
+  h1 {
+    font-family: "Cascadia Mono", Consolas, "Courier New", monospace;
+    font-size:61px; font-weight:600; letter-spacing:-1.6px;
+    margin-top:22px; color:#fff; white-space:nowrap;
+  }
+  .sub { font-size:27px; line-height:1.45; color:#a9b0bb; margin-top:24px; max-width:1010px; }
+  .sub b { color:#e8eaed; font-weight:600; }
+  .rules { display:flex; gap:11px; flex-wrap:nowrap; margin-top:38px; }
+  .chip {
+    border:1px solid #2b313b; background:#151920; border-radius:999px;
+    padding:11px 17px; font-size:17.5px; color:#c3cad4; white-space:nowrap;
+  }
+  .chip i { color:#f0812f; font-style:normal; font-weight:700; margin-right:7px; }
+  .foot {
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-top:1px solid #23272f; padding-top:24px; margin-top:34px;
+  }
+  .meta { font-size:20px; color:#8b929d; }
+  .meta b { color:#c3cad4; font-weight:600; }
+  .handle {
+    font-family: Consolas, monospace; font-size:20px; color:#6f7783;
+  }
+</style></head><body>
+  <div class="grid"></div>
+
+  <div class="main">
+    <div class="eyebrow">Simulink · Stateflow · Embedded C</div>
+    <h1>model-based-design-discipline</h1>
+    <div class="sub">
+      Rules that make an <b>AI coding agent</b> edit production models the way a
+      careful engineer would — analyse first, reuse, verify every edit.
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="rules" style="margin-top:44px">
+      <span class="chip"><i>1</i>Analyse</span>
+      <span class="chip"><i>2</i>Reuse</span>
+      <span class="chip"><i>3</i>Follow prior art</span>
+      <span class="chip"><i>4</i>Geometry</span>
+      <span class="chip"><i>5</i>Verify</span>
+      <span class="chip"><i>6</i>Build it yourself</span>
+      <span class="chip"><i>7</i>Right layer</span>
+    </div>
+    <div class="foot">
+      <div class="meta">Works with <b>any agent</b> · plain Markdown + one MATLAB check · <b>MIT</b></div>
+      <div class="handle">github.com/Ahrazshamim</div>
+    </div>
+  </div>
+</body></html>
